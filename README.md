@@ -40,11 +40,8 @@ The principles demonstrated by the program are analogous to real-world applicati
 
 * Navigation and Logistics: Finding the most efficient routes, considering various constraints and dynamically changing conditions.
 * Resource Allocation: Optimizing the use of limited resources to achieve the best possible outcome.
-** Machine Learning **: Adjusting parameters (learning rate, for example) to optimize the performance of algorithms.
-Philosophical Aspect
-Beyond its mathematical and practical applications, the concept of "possible maximum optimality" at every moment carries a philosophical undertone.
-It suggests that there's always a way to make progress, no matter how indirect the path may seem. This aligns with the idea that even in the face of
-detours and setbacks, forward momentum is possible as long as one recalibrates and adapts.
+* Machine Learning: Adjusting parameters (learning rate, for example) to optimize the performance of algorithms.
+* Philosophical Aspect: Beyond its mathematical and practical applications, the concept of "possible maximum optimality" at every moment carries a philosophical undertone. It suggests that there's always a way to make progress, no matter how indirect the path may seem. This aligns with the idea that even in the face of detours and setbacks, forward momentum is possible as long as one recalibrates and adapts.
 
 **Conclusion**
 Overall, this program is more than just a piece of code; it's a representation of the journey towards a goal, encapsulating the challenges, 
