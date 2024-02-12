@@ -41,7 +41,9 @@ def move_towards_away_3d(current_x, current_y, current_z, target_x, target_y, ta
 def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_z):
     current_x, current_y, current_z = start_x, start_y, start_z
     real_traversal = 0  # Real traversal's initial position
-    initial_shortest_distance = calculate_shortest_distance(start_x, start_y, start_z, target_x, target_y, target_z)
+            # Calculate the shortest distance in 3D space
+    shortest_distance = calculate_shortest_distance(current_x, current_y, current_z, target_x, target_y, target_z)
+    initial_shortest_distance = shortest_distance
 
     print(f"Starting at: ({start_x}, {start_y}, {start_z})")
     print(f"Getting to point: ({target_x}, {target_y}, {target_z})")
@@ -49,8 +51,6 @@ def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_
     print()
 
     while True:
-        # Calculate the shortest distance in 3D space
-        shortest_distance = calculate_shortest_distance(current_x, current_y, current_z, target_x, target_y, target_z)
 
         move = input("Enter movement direction (l/r/u/d/f/b/t/a/e): ")
 
@@ -80,7 +80,10 @@ def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_
 
             elif move == 'e':  # Exit
                 break
-
+        
+        # Calculate the shortest distance in 3D space
+        shortest_distance = calculate_shortest_distance(current_x, current_y, current_z, target_x, target_y, target_z)
+        
         # Update real traversal
         steps_to_target = math.ceil(shortest_distance)
         remaining_real_distance = initial_shortest_distance - real_traversal

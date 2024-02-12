@@ -50,10 +50,9 @@ def simulate_traversal(start_x, start_y, target_x, target_y):
     print()
 
     while True:
-        # Check if the last step is < 1 unit away for complex traversal
-
         move = input("Enter movement direction (l/r/u/d/t/a/e): ")
         
+        # Check if the last step is < 1 unit away for complex traversal
         if shortest_distance < 1:
             current_x, current_y = target_x, target_y  # Move directly to the target
             print("Complex traversal: Making the final step directly to the target.")
