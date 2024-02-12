@@ -43,6 +43,7 @@ def simulate_traversal(start_x, start_y, target_x, target_y):
     real_traversal = 0  # Real traversal's initial position
     shortest_distance = calculate_shortest_distance(start_x, start_y, target_x, target_y)
     initial_shortest_distance = shortest_distance #For rate calculation
+    i_real_distance = 0 # Total complex distance
 
     print(f"Starting at: ({start_x}, {start_y})")
     print(f"Getting to point: ({target_x}, {target_y})")
@@ -51,13 +52,16 @@ def simulate_traversal(start_x, start_y, target_x, target_y):
 
     while True:
         move = input("Enter movement direction (l/r/u/d/t/a/e): ")
-        
+        print()
+
         # Check if the last step is < 1 unit away for complex traversal
         if shortest_distance < 1:
+            i_real_distance += shortest_distance
             current_x, current_y = target_x, target_y  # Move directly to the target
             print("Complex traversal: Making the final step directly to the target.")
 
         else:
+            i_real_distance += 1
             if move in 'lrudta':
                 if move == 'l':  # Left
                     current_x -= 1
@@ -90,9 +94,13 @@ def simulate_traversal(start_x, start_y, target_x, target_y):
         # Update real traversal with the recalculated rate
         real_traversal += real_distance_rate 
 
+        print(f"Target point: ({target_x}, {target_y})")
         print(f"Complex Current Position: ({current_x}, {current_y})")
-        print(f"Distance to B (Shortest distance): {shortest_distance}({math.ceil(shortest_distance)} steps)")
-        print(f"Current Rate: {real_distance_rate}")
+        print(f"Complex shortest distance (to final point): {shortest_distance} ({math.ceil(shortest_distance)} steps)")
+        print(f"Real + Imaginary Distance (total complex distance): {i_real_distance}")
+        print()
+        print(f"Real point final distance: {initial_shortest_distance} (Ends once real reaches this)")
+        print(f"Current Real \"Rate\": {real_distance_rate}")
         print(f"Real Traversal: {real_traversal}")
         print()
 

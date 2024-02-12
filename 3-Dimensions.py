@@ -41,7 +41,9 @@ def move_towards_away_3d(current_x, current_y, current_z, target_x, target_y, ta
 def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_z):
     current_x, current_y, current_z = start_x, start_y, start_z
     real_traversal = 0  # Real traversal's initial position
-            # Calculate the shortest distance in 3D space
+    i_real_distance = 0 # Total complex distance
+
+    # Calculate the shortest distance in 3D space
     shortest_distance = calculate_shortest_distance(current_x, current_y, current_z, target_x, target_y, target_z)
     initial_shortest_distance = shortest_distance
 
@@ -53,14 +55,17 @@ def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_
     while True:
 
         move = input("Enter movement direction (l/r/u/d/f/b/t/a/e): ")
-
+        print()
+        
         # Check if the last step is < 1 unit away for complex traversal
         if shortest_distance < 1:
+            i_real_distance += shortest_distance
             current_x, current_y, current_z = target_x, target_y, target_z  # Move directly to the target
             print("Complex traversal: Making the final step directly to the target.")
 
         else:
             if move in 'lrudfbta':
+                i_real_distance += 1
                 if move == 'l':  # Left
                     current_x -= 1
                 elif move == 'r':  # Right
@@ -83,7 +88,7 @@ def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_
         
         # Calculate the shortest distance in 3D space
         shortest_distance = calculate_shortest_distance(current_x, current_y, current_z, target_x, target_y, target_z)
-        
+
         # Update real traversal
         steps_to_target = math.ceil(shortest_distance)
         remaining_real_distance = initial_shortest_distance - real_traversal
@@ -92,9 +97,13 @@ def simulate_traversal_3d(start_x, start_y, start_z, target_x, target_y, target_
         # Update real traversal with the recalculated rate
         real_traversal += real_distance_rate
 
+        print(f"Getting to point: ({target_x}, {target_y}, {target_z})")
         print(f"Complex Current Position: ({current_x}, {current_y}, {current_z})")
-        print(f"Distance to B (Shortest distance): {shortest_distance} ({math.ceil(shortest_distance)} steps)")
-        print(f"Current Rate: {real_distance_rate}")
+        print(f"Complex shortest distance (to final point): {shortest_distance} ({math.ceil(shortest_distance)} steps)")
+        print(f"Real + Imaginary Distance (total complex distance): {i_real_distance}")
+        print()
+        print(f"Real point final distance: {initial_shortest_distance} (Ends once real reaches this)")
+        print(f"Current Real \"Rate\": {real_distance_rate}")
         print(f"Real Traversal: {real_traversal}")
         print()
 

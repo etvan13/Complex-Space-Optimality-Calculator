@@ -20,6 +20,7 @@ def main():
 
     while True:
         move = input("Enter movement direction (l/r/e): ")
+        print()
 
         # Update position based on input
         if move == 'l':
@@ -42,11 +43,14 @@ def main():
 
         i_real_distance += 1  # Increment total distance considering imaginary
 
+        print(f"Target point: ({bx}, 0)")
         print(f"Current Position: ({ax}, 0)")
-        print(f"Distance to B: {curr_distance}")
+        print(f"Complex shortest distance (to final point): {curr_distance}")
+        print(f"Real + Imaginary Distance (total complex distance): {i_real_distance}")
+        print()
+        print(f"Real point final is {bx} (Ends once real reaches this)")
         print(f"Current Rate: {real_distance_rate}")
         print(f"Real Traversal: {real_distance}")
-        print(f"Real + Imaginary Distance: {i_real_distance}")
         print()
 
         if ax == bx:
