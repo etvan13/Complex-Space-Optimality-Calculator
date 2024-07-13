@@ -59,3 +59,45 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#The core idea is that even when taking indirect routes, we can still converge on our goal. 
+# This code demonstrates that moving in any direction can increase our progress towards the 
+# target point, but some paths may make it harder or impossible to reach the point.

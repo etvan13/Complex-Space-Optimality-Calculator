@@ -1,4 +1,4 @@
-from decimal import Decimal, getcontext
+from decimal import Decimal, getcontext, InvalidOperation
 
 # Set the desired precision to 50 significant digits
 getcontext().prec = 50
@@ -294,97 +294,147 @@ Final Conceptual of Code
     else:
         return  # User typed something other than 'expand', so return and continue the program
 
+def get_positive_integer(prompt):
+    while True:
+        try:
+            value = Decimal(input(prompt))
+            if value > 0 and value == value.to_integral_value():
+                return value
+            else:
+                print("Please enter a non-zero positive whole number.")
+        except InvalidOperation:
+            print("Invalid input. Please enter a valid number.")
+
 # Function to calculate the distance to B
 def calculate_distance(x, target_position):
     return abs(target_position - x)
 
 def main():
-    show_intro()
+        show_intro()
 
-    observer_position = Decimal('0') # Point A on x-observer_position
-    target_position = Decimal(input("Enter the point to reach (Non-zero Positive Integer): "))  # Point B on x-observer_position
+        observer_position = Decimal('0') # Point A on x-observer_position
+        target_position = get_positive_integer("Enter the point to reach (Non-zero Positive Integer): ")  # Point B on x-observer_position
 
-    observerA_spacetime_traveled = Decimal('0')
-    observerA_time_dilation_rate = Decimal('1')
-    observerB_spacetime_traveled = Decimal('0')
+        observerA_spacetime_traveled = Decimal('0')
+        observerA_time_dilation_rate = Decimal('1')
+        observerB_spacetime_traveled = Decimal('0')
 
-    your_spacetime_traveled = Decimal('0')  # Total distance considering imaginary
+        your_spacetime_traveled = Decimal('0')  # Total distance considering imaginary
 
-    print("Note, each 'left' and 'right' YOU input is considered 1 unit per 1 second of traversal for yourself")
-    print(f"Starting at: ({observer_position}, {0})")
-    print(f"Getting to point: ({target_position}, {0})")
-    print(f"Current shortest distance: {target_position - observer_position}")   
+        gravity_A = Decimal('9.8')
+        gravity_B = gravity_A
+        radius_A = target_position
+        radius_B = radius_A
+        c = Decimal('299792458')
 
-    while True:
-        print()
-        move = input("Enter movement direction (l(add gravity)/r(natural flow forwards): ")
-        print()
-        print("----------------------------------------------------------")
+        print("Note, each 'left' and 'right' YOU input is considered 1 unit per 1 second of traversal for yourself")
+        print(f"Starting at: ({observer_position}, {0})")
+        print(f"Getting to point: ({target_position}, {0})")
+        print(f"Current shortest distance: {target_position - observer_position}")   
 
-        # Update position based on input
-        if move == 'l':
-            observer_position -= Decimal('1')
-        elif move == 'r':
-            observer_position += Decimal('1')
-        elif move == 'e':  # Exit condition
-            break
-        else:
-            continue  # If the input is not recognized, continue to the next iteration of the loop
+        while True:
+            print()
+            print("Input 'exit' to return to main Terminal.")
+            move = input("Enter movement direction (l(add gravity)/r(natural flow forwards): ")
+            if (move == 'exit'):
+                break
 
-        curr_distance = calculate_distance(observer_position, target_position)
+            print()
+            print("----------------------------------------------------------")
 
-        # In the event of moving 'away' from point or 'decelerating'
-        # '+1' accounts for the first step rate to avoid division by zero
-        observerA_time_dilation_rate = (target_position - observerA_spacetime_traveled) / (curr_distance + Decimal('1'))
-        #Flip perspective calculations
-        observerB_time_contraction_rate = Decimal('1') / observerA_time_dilation_rate
+            # Update position based on input
+            if move == 'l':
+                observer_position -= Decimal('1')
+            elif move == 'r':
+                observer_position += Decimal('1')
+            elif move == 'e':  # Exit condition
+                break
+            else:
+                continue  # If the input is not recognized, continue to the next iteration of the loop
 
-        # Adds the rate to the distance for one unit of movement
-        observerA_spacetime_traveled += observerA_time_dilation_rate
-        # Flip real distance
-        observerB_spacetime_traveled += observerB_time_contraction_rate
+            curr_distance = calculate_distance(observer_position, target_position)
 
-        # Final point for flipped perspective
-        observerB_extended_target = observerB_spacetime_traveled + ((observerB_time_contraction_rate**Decimal('2')) * (target_position - observerA_spacetime_traveled))
+            # In the event of moving 'away' from point or 'decelerating'
+            # '+1' accounts for the first step rate to avoid division by zero
+            observerA_time_dilation_rate = (target_position - observerA_spacetime_traveled) / (curr_distance + Decimal('1'))
+            #Flip perspective calculations
+            observerB_time_contraction_rate = Decimal('1') / observerA_time_dilation_rate
 
-        your_spacetime_traveled += Decimal('1')  # Increment total distance considering imaginary
+            # Adds the rate to the distance for one unit of movement
+            observerA_spacetime_traveled += observerA_time_dilation_rate
+            # Flip real distance
+            observerB_spacetime_traveled += observerB_time_contraction_rate
 
-        print("--- Your Spacetime Perspective ---")
-        print(f"From your vantage point, observing spacetime unfold at a constant rate of 1 temporal unit per movement:")
-        print(f"Convergence Point: ({target_position}, 0)")
-        print(f"Your Current Coordinate: ({observer_position}, 0)")
-        print(f"Dimensional Distance to Convergence: {curr_distance} units")
-        print(f"Spacetime Passage: {your_spacetime_traveled} temporal units")
-        print()
+            # Final point for flipped perspective
+            observerB_extended_target = observerB_spacetime_traveled + ((observerB_time_contraction_rate**Decimal('2')) * (target_position - observerA_spacetime_traveled))
 
-        print("--- Observer A's Gravitational Journey ---")
-        print(f"Observer A's convergence with stronger gravity alters their temporal flow:")
-        print(f"Target Convergence: {target_position} units")
-        print(f"Time Dilation Rate: {observerA_time_dilation_rate:.10f} (slower time perception)")
-        print(f"Spacetime Traversed: {observerA_spacetime_traveled:.20f} units")
-        print()
+            your_spacetime_traveled += Decimal('1')  # Increment total distance considering imaginary
 
-        print("--- Observer B's Escape from Gravity ---")
-        print(f"Observer B's journey away from gravity affects their temporal experience:")
-        print(f"Extended Convergence Point: {observerB_extended_target:.5f} units")
-        print(f"Time Contraction Rate: {observerB_time_contraction_rate:.5f} (accelerated time perception)")
-        print(f"Spacetime Traversed: {observerB_spacetime_traveled:.5f} units")
+            if (radius_A > 0) :
+                gravity_A = Decimal('9.8') * observerA_time_dilation_rate
+                gravity_B = Decimal('9.8') * observerB_time_contraction_rate
+                #gravity_A = (c**Decimal('2') * (observerA_time_dilation_rate/Decimal('1')**Decimal('2'))) / (Decimal('2') * (target_position - observerA_spacetime_traveled))
+                #gravity_A = (c**Decimal('2') * (Decimal('1')**Decimal('2') - observerA_time_dilation_rate**Decimal('2'))) / (Decimal('2') * Decimal('1')**Decimal('2') * (target_position - observerA_spacetime_traveled))
+                #gravity_B = (c**Decimal('2')/(Decimal('2') * (observerB_extended_target - observerB_spacetime_traveled))) * (Decimal('1') - (Decimal('1')/observerB_time_contraction_rate)**Decimal('2'))
+                # gravity_A = Decimal('1') - (observerA_time_dilation_rate/Decimal('1'))**Decimal('2')
+                # gravity_B = Decimal('1') - (Decimal('1')/observerB_time_contraction_rate)**Decimal('2')
 
-        if observer_position == target_position:
-            print("\nYou've reached the convergence point in spacetime!")
-            print("\n--- Journey Recap ---")
-            print(f"Throughout your journey spanning {your_spacetime_traveled} seconds:")
-            print(f"Observer A (approaching gravity) experienced a passage of {observerA_spacetime_traveled:.5f} seconds/units.")
-            print(f"Observer B (receding from gravity) navigated through {observerB_spacetime_traveled:.5f} seconds/units.")
-            print("\n--- Relative Time Flow ---")
-            print(f"From your vantage point in spacetime, each temporal unit (second/space unit) for you corresponded to:")
-            print(f"{observerA_time_dilation_rate:.5f} seconds for Observer A, illustrating the dilation of time near stronger gravity.")
-            print(f"{observerB_time_contraction_rate:.5f} seconds for Observer B, reflecting the contraction of time as gravity lessens.")
-            print("\nThis encapsulation showcases the relativity of time and space as influenced by gravity,")
-            print("demonstrating how each observer's traversal through spacetime varies from their unique perspective.")
+            print("--- Your Spacetime Perspective ---")
+            print(f"From your vantage point, observing spacetime unfold at a constant rate of 1 second per movement:")
+            print(f"Convergence Point: ({target_position}, 0)")
+            print(f"Your Current Coordinate: ({observer_position}, 0)")
+            print(f"Dimensional Distance to Convergence: {curr_distance} units")
+            print(f"Spacetime Passage: {your_spacetime_traveled} seconds")
+            print()
 
+            print("--- Observer A's Gravitational Journey ---")
+            print(f"Observer A's convergence with stronger gravity alters their temporal flow:")
+            print(f"Target Convergence: {target_position} units")
+            print(f"Time Dilation Rate: {observerA_time_dilation_rate:.10f} (slower time perception)")
+            print(f"Spacetime Traversed: {observerA_spacetime_traveled:.20f} units")
+            print()
 
-            break
+            print("--- Observer B's Escape from Gravity ---")
+            print(f"Observer B's journey away from gravity affects their temporal experience:")
+            print(f"Extended Convergence Point: {observerB_extended_target:.5f} units")
+            print(f"Time Contraction Rate: {observerB_time_contraction_rate:.5f} (accelerated time perception)")
+            print(f"Spacetime Traversed: {observerB_spacetime_traveled:.5f} units")
+
+            print()
+            print(f"Gravity A: {gravity_A:.5f}")
+            print(f"Gravity B: {gravity_B:.5f}")
+            
+            if observer_position == target_position:
+                print("\nYou've reached the convergence point in spacetime!")
+                print("\n--- Journey Recap ---")
+                print(f"Throughout your journey spanning {your_spacetime_traveled} seconds:")
+                print(f"Observer A (approaching gravity) experienced a passage of {observerA_spacetime_traveled:.5f} seconds/units.")
+                print(f"Observer B (receding from gravity) navigated through {observerB_spacetime_traveled:.5f} seconds/units.")
+                print("\n--- Relative Time Flow ---")
+                print(f"From your vantage point in spacetime, each temporal unit (second/spatial unit) for you corresponded to:")
+                print(f"{observerA_time_dilation_rate:.5f} seconds for Observer A, illustrating the dilation of time near stronger gravity.")
+                print(f"{observerB_time_contraction_rate:.5f} seconds for Observer B, reflecting the contraction of time as gravity lessens.")
+                print("\nThis encapsulation showcases the relativity of time and space as influenced by gravity,")
+                print("demonstrating how each observer's traversal through spacetime varies from their unique perspective.")
+                print()
+
+                break
 
 if __name__ == "__main__":
     main()
+
+
+# t' (higher potential) = t * sqrt(1-(2GM/rc^2))
+
+# t (lower potential) = t'/sqrt(1-(2GM/rc^2))
+    
+# g = GM/r^2
+    
+# g = (c^2/2r)(1-(t'/t)^2)
+    
+# g = Δv/Δt  
+    
+# M = (rc^2/2G)((t')^2 - 1)
+    
+#Δt' = Δt / sqrt(1 - (v^2/c^2))
+    
