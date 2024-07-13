@@ -12,4 +12,7 @@
 4. **Enforcement Clause:**
    - Any person or entity that respects and abides by the terms of this license has the right to enforce these terms against those who fail to comply.
 
+5. **Universal Applicability:**
+   - This license is applicable universally, regardless of jurisdiction.
+
 By using this work, you agree to the terms of the Simple Paradoxical Use License (SPUL).
