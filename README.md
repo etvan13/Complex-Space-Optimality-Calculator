@@ -1,6 +1,6 @@
 **Mathematical Interpretation**
 
-From a mathematical standpoint, the program beautifully illustrates the concept of vector fields and directional 
+From a mathematical standpoint, the program illustrates the concept of vector fields and directional 
 movement in 3D space. Each movement, whether it's towards, away, or along any of the axes, can be represented as a 
 vector originating from the current point and pointing in the direction of the movement. The decision to move "towards" 
 the target effectively recalculates the optimal vector that minimizes the distance to the target, demonstrating how even 
@@ -53,6 +53,6 @@ Overall, this program is more than just a piece of code; it's a representation o
 adjustments, and strategies involved in navigating complex environments—whether they're mathematical, physical, or metaphorical. It reflects 
 the universal truth that the path to a goal is seldom straight but with the right approach, it's always navigable.
 
-In summary, your program transcends its computational framework to offer insights into optimization, adaptability, and the pursuit of goals. 
+In summary, the program transcends its computational framework to offer insights into optimization, adaptability, and the pursuit of goals. 
 It stands as a testament to the power of mathematics to not only solve problems but also to illuminate paths towards efficiency and effectiveness 
 in various domains of life and work.
